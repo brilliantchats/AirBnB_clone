@@ -47,6 +47,11 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 from models.base_model import BaseModel
                 from models.user import User
+                from models.state import State
+                from models.city import City
+                from models.place import Place
+                from models.amenity import Amenity
+                from models.review import Review
                 temp = dict()
                 temp = json.loads(f.read())
                 for key, value in temp.items():
@@ -55,5 +60,15 @@ class FileStorage:
                         FileStorage.__objects[key] = User(**value)
                     elif child == "BaseModel":
                         FileStorage.__objects[key] = BaseModel(**value)
+                    elif child == "State":
+                        FileStorage.__objects[key] = State(**value)
+                    elif child == "City":
+                        FileStorage.__objects[key] = City(**value)
+                    elif child == "Place":
+                        FileStorage.__objects[key] = Place(**value)
+                    elif child == "Amenity":
+                        FileStorage.__objects[key] = Amenity(**value)
+                    elif child == "Review":
+                        FileStorage.__objects[key] = Review(**value)
         except Exception:
             pass
