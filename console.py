@@ -164,6 +164,14 @@ class HBNBCommand(cmd.Cmd):
                 if name == class_name:
                     count += 1
             print(count)
+        elif command == "show":
+            iD = args[1][6:(len(args[1]) - 2)]
+            string = class_name + " " + iD
+            self.do_show(string)
+        elif command == "destroy":
+            iD = args[1][9:(len(args[1]) - 2)]
+            string = class_name + " " + iD
+            self.do_destroy(string)
 
 
 if __name__ == '__main__':
