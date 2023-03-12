@@ -71,4 +71,4 @@ class FileStorage:
                     elif child == "Review":
                         FileStorage.__objects[key] = Review(**value)
         except Exception:
-            pass
+            FileStorage.__objects = {}

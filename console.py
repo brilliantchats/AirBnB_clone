@@ -12,13 +12,13 @@ from models.amenity import Amenity
 from models.review import Review
 from models import storage
 class_dict = {
-        "BaseModel": BaseModel(),
-        "User": User(),
-        "State": State(),
-        "City": City(),
-        "Place": Place(),
-        "Amenity": Amenity(),
-        "Review": Review()
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Place": Place,
+        "Amenity": Amenity,
+        "Review": Review
         }
 
 
@@ -46,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             args = line.split()
             class_name = args[0]
             if class_name in class_dict.keys():
-                model = class_dict[class_name]
+                model = class_dict[class_name]()
                 print(model.id)
                 model.save()
             else:
@@ -111,7 +111,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             objs = []
-            for k, v in storage.all().items():
+            dic = storage.all()
+            for k, v in dic.items():
                 objs.append(str(v))
             print(objs)
 
@@ -141,6 +142,28 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
         else:
             print("** class name missing **")
+
+    def default(self, line):
+        """Methods without the do prefix"""
+        args = line.split('.')
+        class_name = args[0]
+        command = args[1].split('(')[0]
+        if command == "all":
+            objs = storage.all()
+            class_arr = []
+            for key, value in objs.items():
+                name = key.split('.')[0]
+                if name == class_name:
+                    class_arr.append(str(value))
+            print(class_arr)
+        elif command == "count":
+            objs = storage.all()
+            count = 0
+            for key, value in objs.items():
+                name = key.split('.')[0]
+                if name == class_name:
+                    count += 1
+            print(count)
 
 
 if __name__ == '__main__':
