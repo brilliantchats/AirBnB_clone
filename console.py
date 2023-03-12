@@ -120,15 +120,18 @@ class HBNBCommand(cmd.Cmd):
         """Updates an attribute within an object"""
         if line:
             args = line.split()
-            class_name = args[0]
+            class_name = args[0].strip('\"\'')
             if len(args) >= 4:
                 if class_name in class_dict.keys():
                     objs = storage.all()
+                    id_value = args[1].strip('\'\"')
                     for k, v in objs.items():
                         iD = k.split('.')[1]
-                        if iD == args[1]:
+                        if iD == id_value:
+                            attr = args[2].strip('\"\'')
+                            val = args[3].strip('\"\'')
                             setattr(storage.all()[k],
-                                    args[2], type(args[2])(args[3]))
+                                    attr, type(attr)(val))
                             storage.save()
                             return
                     print("** no instance found **")
@@ -172,6 +175,12 @@ class HBNBCommand(cmd.Cmd):
             iD = args[1][9:(len(args[1]) - 2)]
             string = class_name + " " + iD
             self.do_destroy(string)
+        elif command == "update":
+            arg = args[1][7:(len(args[1]) - 1)]
+            string = class_name + ", " + arg
+            arr = string.split(", ")
+            final_str = " ".join(arr)
+            self.do_update(final_str)
 
 
 if __name__ == '__main__':
