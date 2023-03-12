@@ -4,6 +4,7 @@ Defines a class, City, which defines a city like the real world
 """
 from models.base_model import BaseModel
 from models.state import State
+from models import storage
 
 
 class City(BaseModel):
@@ -16,4 +17,3 @@ class City(BaseModel):
     def __init__(self, *args, **kwargs):
         """Initialises the City class"""
         super().__init__(*args, **kwargs)
-        state_id = State().id
