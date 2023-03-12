@@ -46,9 +46,14 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path, 'r') as f:
                 from models.base_model import BaseModel
+                from models.user import User
                 temp = dict()
                 temp = json.loads(f.read())
                 for key, value in temp.items():
-                    FileStorage.__objects[key] = BaseModel(**value)
+                    child = key.split('.')[0]
+                    if child == "User":
+                        FileStorage.__objects[key] = User(**value)
+                    elif child == "BaseModel":
+                        FileStorage.__objects[key] = BaseModel(**value)
         except Exception:
             pass

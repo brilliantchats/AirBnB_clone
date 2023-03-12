@@ -44,7 +44,7 @@ class BaseModel():
         final_dict = dict()
         for k, v in self.__dict__.items():
             final_dict[k] = v
-        final_dict['__class__'] = "BaseModel"
+        final_dict['__class__'] = type(self).__name__
         final_dict['created_at'] = self.created_at.isoformat()
         final_dict['updated_at'] = self.updated_at.isoformat()
         return final_dict
@@ -53,7 +53,8 @@ class BaseModel():
         """
         String representation of the object
         """
-        return "[BaseModel] ({}) {}".format(self.id, self.__dict__)
+        class_name = type(self).__name__
+        return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
 
     def save(self):
         """

@@ -4,6 +4,7 @@ Defines the command interpreter or console for interaction with our objects
 """
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
@@ -29,8 +30,11 @@ class HBNBCommand(cmd.Cmd):
         """Creates a BaseModel instance"""
         if line:
             args = line.split()
-            if args[0] == "BaseModel":
-                model = BaseModel()
+            if args[0] == "BaseModel" or args[0] == "User":
+                if args[0] == "BaseModel":
+                    model = BaseModel()
+                else:
+                    model = User()
                 print(model.id)
                 model.save()
             else:
@@ -43,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
         if line:
             args = line.split()
             if len(args) == 2:
-                if args[0] == "BaseModel":
+                if args[0] == "BaseModel" or args[0] == "User":
                     objs = storage.all()
                     for key, value in objs.items():
                         iD = key.split('.')[1]
@@ -63,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
         if line:
             args = line.split()
             if len(args) == 2:
-                if args[0] == "BaseModel":
+                if args[0] == "BaseModel" or args[0] == "User":
                     objs = storage.all()
                     for key, value in objs.items():
                         iD = key.split('.')[1]
@@ -83,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
         """Prints all str implementation of instances"""
         if line:
             args = line.split()
-            if args[0] == "BaseModel":
+            if args[0] == "BaseModel" or args[0] == "User":
                 objs = []
                 for k, v in storage.all().items():
                     objs.append(str(v))
@@ -101,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
         if line:
             args = line.split()
             if len(args) >= 4:
-                if args[0] == "BaseModel":
+                if args[0] == "BaseModel" or args[0] == "User":
                     objs = storage.all()
                     for k, v in objs.items():
                         iD = k.split('.')[1]
