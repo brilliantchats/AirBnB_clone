@@ -26,14 +26,14 @@ class HBNBCommand(cmd.Cmd):
     """
     Class to define entry point for console
     """
-    prompt = "(hbnp) "
+    prompt = "(hbnb) "
 
     def do_EOF(self, line):
         """Exits the console"""
         return True
 
     def do_quit(self, line):
-        """Quit command to exit the program\n"""
+        """Quit command to exit the program"""
         return True
 
     def emptyline(self):
