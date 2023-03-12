@@ -177,10 +177,18 @@ class HBNBCommand(cmd.Cmd):
             self.do_destroy(string)
         elif command == "update":
             arg = args[1][7:(len(args[1]) - 1)]
-            string = class_name + ", " + arg
-            arr = string.split(", ")
-            final_str = " ".join(arr)
-            self.do_update(final_str)
+            if arg[40] == '{':
+                dic_str = arg[40:len(arg)]
+                dict_arg = eval(dic_str)
+                iD = arg.split(", ")[0]
+                for k, v in dict_arg.items():
+                    strng = class_name + " " + iD + " " + str(k) + " " + str(v)
+                    self.do_update(strng)
+            else:
+                string = class_name + ", " + arg
+                arr = string.split(", ")
+                final_str = " ".join(arr)
+                self.do_update(final_str)
 
 
 if __name__ == '__main__':
